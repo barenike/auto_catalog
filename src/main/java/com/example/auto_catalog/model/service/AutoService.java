@@ -1,7 +1,7 @@
 package com.example.auto_catalog.model.service;
 
 import com.example.auto_catalog.exceptions.AutoAlreadyExistException;
-import com.example.auto_catalog.exceptions.NotEnoughDataForStatisticsDump;
+import com.example.auto_catalog.exceptions.NotEnoughDataForStatisticsDumpException;
 import com.example.auto_catalog.infrastructure.AutoCreationRequest;
 import com.example.auto_catalog.infrastructure.StatisticsResponse;
 import com.example.auto_catalog.model.entity.AutoEntity;
@@ -40,7 +40,7 @@ public class AutoService {
         StatisticsResponse response = new StatisticsResponse();
         long count = autoRepository.count();
         if (count < 1) {
-            throw new NotEnoughDataForStatisticsDump("Not enough data for statistics dump.");
+            throw new NotEnoughDataForStatisticsDumpException("Not enough data for statistics dump.");
         }
         response.setCount(count);
         response.setFirstRecordCreationData(autoRepository.findFirstByOrderByCreationDateAsc().getCreationDate());

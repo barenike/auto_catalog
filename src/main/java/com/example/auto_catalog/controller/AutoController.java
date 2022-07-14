@@ -1,7 +1,7 @@
 package com.example.auto_catalog.controller;
 
 import com.example.auto_catalog.exceptions.AutoAlreadyExistException;
-import com.example.auto_catalog.exceptions.NotEnoughDataForStatisticsDump;
+import com.example.auto_catalog.exceptions.NotEnoughDataForStatisticsDumpException;
 import com.example.auto_catalog.infrastructure.AutoCreationRequest;
 import com.example.auto_catalog.model.entity.AutoEntity;
 import com.example.auto_catalog.model.service.AutoService;
@@ -59,7 +59,7 @@ public class AutoController {
     public ResponseEntity<?> getStatistics() {
         try {
             return new ResponseEntity<>(autoService.getStatistics(), HttpStatus.OK);
-        } catch (NotEnoughDataForStatisticsDump e) {
+        } catch (NotEnoughDataForStatisticsDumpException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
